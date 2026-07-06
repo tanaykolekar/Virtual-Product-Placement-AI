@@ -28,7 +28,6 @@ Compositing & Harmonization: OpenCV, NumPy
 
 Encoding: FFmpeg (for lossless frame stitching)
 
-
 🚀 How to Run (Google Colab)
 
 This project is optimized to run on a Google Colab T4 GPU instance to manage VRAM effectively.
@@ -39,9 +38,28 @@ Upload your background video (Trial.mp4) and transparent product image (object.p
 
 Run the installation dependencies.
 
-Set your target bounding box coordinates in the VFX Dashboard.
+Set your target bounding box coordinates in the VFX Dashboard (see the Helper Script below).
 
 Execute the pipeline to generate your HD composited video.
+
+🎯 Bounding Box Helper Script
+
+To easily find the BOX = (Left, Top, Right, Bottom) coordinates for where to place your object, use this quick Matplotlib helper script in a separate Colab cell before running the main pipeline. It generates a coordinate grid over your video's first frame.
+
+import cv2
+import matplotlib.pyplot as plt
+
+VIDEO_FILENAME = "Trial.mp4" 
+cap = cv2.VideoCapture(VIDEO_FILENAME)
+ret, frame = cap.read()
+cap.release()
+
+if ret:
+    plt.figure(figsize=(14, 10))
+    plt.imshow(cv2.cvtColor(frame, cv2.COLOR_BGR2RGB))
+    plt.grid(color='white', linestyle='--', linewidth=0.7, alpha=0.7)
+    plt.title("Find your BOX coordinates using the axes below!", fontsize=16)
+    plt.show()
 
 
 🧠 Future Roadmap
